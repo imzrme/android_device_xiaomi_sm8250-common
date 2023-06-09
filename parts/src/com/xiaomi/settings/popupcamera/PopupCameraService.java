@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.popupcamera;
+package com.xiaomi.settings.popupcamera;
 
 import android.annotation.NonNull;
 import android.app.AlertDialog;
@@ -39,10 +39,10 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import org.lineageos.settings.R;
-import org.lineageos.settings.sensors.ProximitySensor;
-import org.lineageos.settings.sensors.SensorsUtils;
-import org.lineageos.settings.utils.FileUtils;
+import com.xiaomi.settings.R;
+import com.xiaomi.settings.sensors.ProximitySensor;
+import com.xiaomi.settings.sensors.SensorsUtils;
+import com.xiaomi.settings.utils.FileUtils;
 
 import vendor.xiaomi.hardware.motor.V1_0.IMotor;
 import vendor.xiaomi.hardware.motor.V1_0.IMotorCallback;
