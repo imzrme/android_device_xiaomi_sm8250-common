@@ -62,5 +62,5 @@ sys.thermal.                                    u:object_r:vendor_thermal_normal
 vendor.sys.thermal.                             u:object_r:vendor_thermal_normal_prop:s0
 persist.sys.thermal.config                      u:object_r:vendor_thermal_normal_prop:s0
 
-### fastcharge
-persist.vendor.sec.fastchg_enabled     u:object_r:vendor_fastcharge_prop:s0
+# Fastcharge
+persist.vendor.fastchg_enabled              u:object_r:vendor_fastcharge_prop:s0

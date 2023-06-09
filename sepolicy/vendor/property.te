@@ -10,5 +10,4 @@ vendor_restricted_prop(vendor_fingerprint_prop);
 
 vendor_internal_prop(vendor_motor_prop);
 
-# Fastcharge HAL
-type vendor_fastcharge_prop, property_type;
+vendor_internal_prop(vendor_fastcharge_prop);
