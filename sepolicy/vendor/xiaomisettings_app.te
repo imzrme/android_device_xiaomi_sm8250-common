@@ -1,0 +1,5 @@
+allow xiaomisettings_app vendor_sysfs_graphics:dir search;
+allow xiaomisettings_app vendor_sysfs_graphics:file rw_file_perms;
+
+get_prop(xiaomisettings_app, vendor_fastcharge_prop)
+set_prop(xiaomisettings_app, vendor_fastcharge_prop)

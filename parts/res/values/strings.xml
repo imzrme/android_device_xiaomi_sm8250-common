@@ -224,10 +224,6 @@
     <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
 
-    <!-- DC dimming -->
-    <string name="dc_dimming_title">DC Dimming</string>
-    <string name="dc_dimming_summary">May reduce eye strain when using the phone, which may reduce display quality</string>
-
     <!-- Refresh Rate tile -->
     <string name="refresh_rate_tile_title">Refresh Rate</string>
 
@@ -239,5 +235,18 @@
     <string name="refresh_high">High (90Hz)</string>
     <string name="refresh_higher">Higher (120Hz)</string>
     <string name="refresh_maximum">Maximum (144Hz)</string>
+
+    <!-- DC dimming -->
+    <string name="dc_dimming_title">DC Dimming</string>
+    <string name="dc_dimming_summary">May reduce eye strain when using the phone, which may reduce display quality</string>
+    <string name="dc_dimming_failed">Failed to enable DC dimming!</string>
+
+    <!-- Fast charge -->
+    <string name="fast_charge_title">Fast Charge</string>
+    <string name="fast_charge_summary">Can greatly improve the charging speed, but may cause heat</string>
+
+    <!-- High touch polling rate -->
+    <string name="touch_polling_rate_title">High touch polling rate</string>
+    <string name="touch_polling_rate_summary">Increase the touch polling rate from 240hz to 360hz to improve the touch follow-through, which may slightly increase power consumption</string>
 
 </resources>
