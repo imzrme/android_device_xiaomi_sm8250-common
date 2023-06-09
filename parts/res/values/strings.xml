@@ -45,7 +45,6 @@
     <!-- DO NOT TRANSLATE Empty summary for dynamic preferences -->
     <string name="summary_empty" translatable="false"></string>
 
-
     <!-- Device gestures panel -->
     <string name="screen_gestures_panel_title">Gestures</string>
 
