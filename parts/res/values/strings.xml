@@ -238,5 +238,6 @@
     <string name="refresh_standard">Standard (60Hz)</string>
     <string name="refresh_high">High (90Hz)</string>
     <string name="refresh_higher">Higher (120Hz)</string>
+    <string name="refresh_maximum">Maximum (144Hz)</string>
 
 </resources>
