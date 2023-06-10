@@ -17,7 +17,7 @@
 
     <SwitchPreference
             android:key="fast_charge_key"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:title="@string/fast_charge_title"
             android:summary="@string/fast_charge_summary" />
 </PreferenceScreen>
