@@ -1,2 +1,0 @@
-type xiaomisettings_app, domain;
-typeattribute xiaomisettings_app mlstrustedsubject;
