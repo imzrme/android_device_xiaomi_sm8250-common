@@ -3,6 +3,7 @@ typeattribute xiaomisettings_app mlstrustedsubject;
 app_domain(xiaomisettings_app)
 
 allow xiaomisettings_app {
+  app_api_service
   activity_service
   activity_task_service
   audio_service
@@ -10,6 +11,7 @@ allow xiaomisettings_app {
   autofill_service
   cameraserver_service
   content_capture_service
+  drmserver_service
   game_service
   gpu_service
   netstats_service
@@ -24,19 +26,32 @@ allow xiaomisettings_app {
   voiceinteraction_service
 }:service_manager find;
 
+hal_client_domain(xiaomisettings_app, hal_motor)
+
 allow xiaomisettings_app sysfs_touch_polling_rate:dir search;
 allow xiaomisettings_app sysfs_touch_polling_rate:file rw_file_perms;
 
 allow xiaomisettings_app system_app_data_file:dir create_dir_perms;
 allow xiaomisettings_app system_app_data_file:file create_file_perms;
+allow devicesettings_app system_app_data_file:{ file lnk_file } create_file_perms;
 
 allow xiaomisettings_app {
   system_data_file
   user_profile_root_file
 }:dir search;
 
+# Allow binder communication with gpuservice
+binder_call(devicesettings_app, gpuservice)
+binder_call(devicesettings_app, hal_motor)
+
+# Allow devicesettings_app to read and write to cgroup/sysfs_leds/sysfs_thermal
+allow devicesettings_app sysfs_leds:dir search;
+
+#allow devicesettings_app vendor_sysfs_graphics:dir search;
 allow xiaomisettings_app {
   cgroup
+  sysfs_leds
+  sysfs_thermal
 }:{ file lnk_file } rw_file_perms;
 
 set_prop(xiaomisettings_app, system_prop)
