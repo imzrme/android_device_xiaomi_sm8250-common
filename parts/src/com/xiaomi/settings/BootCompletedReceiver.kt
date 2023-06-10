@@ -22,6 +22,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
+import android.os.SystemProperties;
 import android.view.Display.HdrCapabilities
 import android.view.SurfaceControl
 import androidx.preference.PreferenceManager
