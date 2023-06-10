@@ -22,7 +22,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
-import android.os.SystemProperties;
+import android.os.SystemProperties
 import android.view.Display.HdrCapabilities
 import android.view.SurfaceControl
 import androidx.preference.PreferenceManager
@@ -45,9 +45,11 @@ class BootCompletedReceiver : BroadcastReceiver() {
         if (!TouchUtils.setTouchStatus(if (highPollingRateEnabled) TouchUtils.HIGH_POLLING_RATE_ON else TouchUtils.HIGH_POLLING_RATE_OFF)) {
             Log.e(TAG, "Failed to set High touch poling rate node on boot!")
         }
+
         val fastChargeEnabled = sharedPreference.getBoolean(ChargeUtils.FAST_CHARGE_KEY, false)
         ChargeUtils.setFastChargeStatus(if (fastChargeEnabled) ChargeUtils.FAST_CHARGE_ON else ChargeUtils.FAST_CHARGE_OFF)
-
+        
+    }
 
     companion object {
         private const val DEBUG = false
