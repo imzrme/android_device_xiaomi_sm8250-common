@@ -1,4 +1,5 @@
 type xiaomisettings_app, domain;
+typeattribute xiaomisettings_app mlstrustedsubject;
 
 type sysfs_touch_polling_rate, sysfs_type, fs_type;
 
