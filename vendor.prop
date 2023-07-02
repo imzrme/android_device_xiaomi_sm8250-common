@@ -290,5 +290,3 @@ ro.vendor.cct.need.check.touch.enable=true
 #prop for touch idle
 ro.vendor.display.touch.idle.enable=true
 
-# Touchfeature
-ro.vendor.touchfeature.type=151
