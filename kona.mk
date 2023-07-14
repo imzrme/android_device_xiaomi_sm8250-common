@@ -429,6 +429,10 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/xiaomi
 
+# Touch
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.xiaom_kona
+
 # Telephony
 PRODUCT_PACKAGES += \
     ims-ext-common \
