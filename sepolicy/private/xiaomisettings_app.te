@@ -28,6 +28,8 @@ allow xiaomisettings_app {
 
 hal_client_domain(xiaomisettings_app, hal_motor)
 
+allow xiaomisettings_app sysfs_dc:file rw_file_perms;
+
 allow xiaomisettings_app sysfs_touch_polling_rate:dir search;
 allow xiaomisettings_app sysfs_touch_polling_rate:file rw_file_perms;
 
