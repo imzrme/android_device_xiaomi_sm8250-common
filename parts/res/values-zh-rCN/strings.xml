@@ -138,7 +138,8 @@
     <string name="fast_charge_summary">可以极大提高充电速度，但是可能会造成发热</string>
 
     <!-- High touch polling rate -->
-    <string name="touch_polling_rate_title">高触控采样率</string>
-    <string name="touch_polling_rate_summary">将触控刷新率从240hz提升到360hz，提高触控跟手度，可能会略微增加耗电</string>
+    <string name="htsr_title">高触控采样率</string>
+    <string name="htsr_enable_title">提高触控采样率</string>
+    <string name="htsr_enable_summary">将触控刷新率从240hz提升到360hz，提高触控跟手度，可能会略微增加耗电</string>
 
 </resources>
