@@ -951,7 +951,7 @@ function configure_memory_parameters() {
     # Set allocstall_threshold to 0 for all targets.
     #
 
-    ProductName=`getprop ro.board.platform`
+    ProductName=`getprop ro.product.name`
     low_ram=`getprop ro.config.low_ram`
 
     if [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] || [ "$ProductName" == "sdmshrike_au" ] || [ "$ProductName" == "alioth" ]; then
@@ -5868,6 +5868,7 @@ case "$target" in
         # device/target specific folder
         setprop vendor.dcvs.prop 0
 	setprop vendor.dcvs.prop 1
+    echo N > /sys/module/lpm_levels/parameters/sleep_disabled
     configure_memory_parameters
     ;;
 esac
