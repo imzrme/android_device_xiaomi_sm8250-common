@@ -79,12 +79,6 @@ SOONG_CONFIG_NAMESPACES += dolby_vision
 SOONG_CONFIG_dolby_vision += enabled
 SOONG_CONFIG_dolby_vision_enabled := true
 
-# Dolby
-ifeq ($(TARGET_USES_MIUI_DOLBY),true)
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-     $(COMMON_PATH)/configs/dolby/manifests/dolby_framework_matrix.xml
-endif
-
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
@@ -100,6 +94,10 @@ ODM_MANIFEST_SKUS += nfc
 ODM_MANIFEST_NFC_FILES := $(COMMON_PATH)/manifest_nfc.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(COMMON_PATH)/framework_compatibility_matrix.xml
 
+ifeq ($(TARGET_USES_MIUI_DOLBY),true)
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+     $(COMMON_PATH)/configs/dolby/manifests/dolby_framework_matrix.xml
+endif
 
 # Init
 TARGET_INIT_VENDOR_LIB ?= //$(COMMON_PATH):init_xiaomi_kona
