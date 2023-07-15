@@ -125,6 +125,22 @@ vendor.qcom.bluetooth.soc=hastings
 ro.soc.manufacturer=QTI
 ro.soc.model=SM8250
 
+# Dolby
+# Audio FX modules
+vendor/lib/soundfx/libasphere.so
+vendor/lib/soundfx/libmisoundfx.so
+vendor/lib/soundfx/libqcbassboost.so
+vendor/lib/soundfx/libqcreverb.so
+vendor/lib/soundfx/libqcvirt.so
+vendor/lib/soundfx/libshoebox.so
+
+# Audio FX AudioSphere
+system_ext/etc/permissions/audiosphere.xml
+system_ext/framework/audiosphere.jar
+vendor/bin/audioflacapp
+vendor/bin/loadalgo
+
+
 # Crypto
 ro.crypto.allow_encrypt_override=true
 ro.crypto.volume.filenames_mode=aes-256-cts
