@@ -1,19 +1,19 @@
 /**
  * Copyright (C) 2020 The LineageOS Project
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xiaomi.settings.refreshrate;
+package org.lineageos.settings.refreshrate;
 
 import android.annotation.Nullable;
 import android.content.Context;
@@ -35,11 +35,14 @@ import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.settingslib.applications.ApplicationsState;
 
-import com.xiaomi.settings.R;
+import org.lineageos.settings.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RefreshSettingsFragment extends PreferenceFragment
-        implements AdapterView.OnItemClickListener, ApplicationsState.Callbacks {
+        implements ApplicationsState.Callbacks {
 
     private AllPackagesAdapter mAllPackagesAdapter;
     private ApplicationsState mApplicationsState;
@@ -57,9 +60,8 @@ public class RefreshSettingsFragment extends PreferenceFragment
     private Map<String, ApplicationsState.AppEntry> mEntryMap =
             new HashMap<String, ApplicationsState.AppEntry>();
 
-    private ListView mUserListView;
-
     private RefreshUtils mRefreshUtils;
+    private RecyclerView mAppsRecyclerView;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -81,22 +83,17 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.refresh_layout, container, false);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mUserListView = view.findViewById(R.id.refresh_list_view);
-        mUserListView.setAdapter(mAllPackagesAdapter);
-        mUserListView.setOnItemClickListener(this);
+        mAppsRecyclerView = view.findViewById(R.id.refresh_rv_view);
+        mAppsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAppsRecyclerView.setAdapter(mAllPackagesAdapter);
     }
 
 
@@ -113,12 +110,6 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
         mSession.onPause();
         mSession.onDestroy();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ViewHolder holder = (ViewHolder) view.getTag();
-        holder.mode.performClick();
     }
 
     @Override
@@ -204,12 +195,8 @@ public class RefreshSettingsFragment extends PreferenceFragment
     private int getStateDrawable(int state) {
         switch (state) {
             case RefreshUtils.STATE_STANDARD:
-		return R.drawable.ic_refresh_60;
-            case RefreshUtils.STATE_HIGH:
-                return R.drawable.ic_refresh_90;
-	    case RefreshUtils.STATE_HIGHER:
-                return R.drawable.ic_refresh_120;
-	    case RefreshUtils.STATE_MAXIMUM:
+                return R.drawable.ic_refresh_60;
+            case RefreshUtils.STATE_EXTREME:
                 return R.drawable.ic_refresh_120;
             case RefreshUtils.STATE_DEFAULT:
             default:
@@ -217,7 +204,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
         }
     }
 
-    private static class ViewHolder {
+    private class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private Spinner mode;
         private ImageView icon;
@@ -225,6 +212,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
         private ImageView stateIcon;
 
         private ViewHolder(View view) {
+            super(view);
             this.title = view.findViewById(R.id.app_name);
             this.mode = view.findViewById(R.id.app_mode);
             this.icon = view.findViewById(R.id.app_icon);
@@ -235,26 +223,17 @@ public class RefreshSettingsFragment extends PreferenceFragment
         }
     }
 
-    private static class ModeAdapter extends BaseAdapter {
+    private class ModeAdapter extends BaseAdapter {
 
         private final LayoutInflater inflater;
-        private final TypedValue textColorSecondary;
-        private final int textColor;
         private final int[] items = {
                 R.string.refresh_default,
                 R.string.refresh_standard,
-                R.string.refresh_high,
-	        R.string.refresh_higher,
-	        R.string.refresh_maximum
+                R.string.refresh_extreme
         };
 
         private ModeAdapter(Context context) {
             inflater = LayoutInflater.from(context);
-
-            textColorSecondary = new TypedValue();
-            context.getTheme().resolveAttribute(com.android.internal.R.attr.textColorSecondary,
-                    textColorSecondary, true);
-            textColor = context.getColor(textColorSecondary.resourceId);
         }
 
         @Override
@@ -283,41 +262,26 @@ public class RefreshSettingsFragment extends PreferenceFragment
             }
 
             view.setText(items[position]);
-            view.setTextColor(textColor);
             view.setTextSize(14f);
 
             return view;
         }
     }
 
-    private class AllPackagesAdapter extends BaseAdapter
+    private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder>
             implements AdapterView.OnItemSelectedListener, SectionIndexer {
 
-        private final LayoutInflater mInflater;
-        private final ModeAdapter mModesAdapter;
         private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
         private String[] mSections;
         private int[] mPositions;
 
         public AllPackagesAdapter(Context context) {
-            mInflater = LayoutInflater.from(context);
-            mModesAdapter = new ModeAdapter(context);
             mActivityFilter = new ActivityFilter(context.getPackageManager());
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mEntries.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mEntries.get(position);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
         }
 
         @Override
@@ -325,37 +289,36 @@ public class RefreshSettingsFragment extends PreferenceFragment
             return mEntries.get(position).id;
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                holder = new ViewHolder(mInflater.inflate(
-                        R.layout.refresh_list_item, parent, false));
-                holder.mode.setAdapter(mModesAdapter);
-                holder.mode.setOnItemSelectedListener(this);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.refresh_list_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            Context context = holder.itemView.getContext();
 
             ApplicationsState.AppEntry entry = mEntries.get(position);
 
             if (entry == null) {
-                return holder.rootView;
+                return;
             }
-
+            holder.mode.setAdapter(new ModeAdapter(context));
+            holder.mode.setOnItemSelectedListener(this);
             holder.title.setText(entry.label);
+            holder.title.setOnClickListener(v -> holder.mode.performClick());
             mApplicationsState.ensureIcon(entry);
             holder.icon.setImageDrawable(entry.icon);
-            holder.mode.setSelection(mRefreshUtils.getStateForPackage(entry.info.packageName),
-                    false);
+            int packageState = mRefreshUtils.getStateForPackage(entry.info.packageName);
+            holder.mode.setSelection(packageState, false);
             holder.mode.setTag(entry);
-            holder.stateIcon.setImageResource(getStateDrawable(
-                    mRefreshUtils.getStateForPackage(entry.info.packageName)));
-            return holder.rootView;
+            holder.stateIcon.setImageResource(getStateDrawable(packageState));
         }
 
         private void setEntries(List<ApplicationsState.AppEntry> entries,
-                List<String> sections, List<Integer> positions) {
+                                List<String> sections, List<Integer> positions) {
             mEntries = entries;
             mSections = sections.toArray(new String[sections.size()]);
             mPositions = new int[positions.size()];
@@ -369,24 +332,12 @@ public class RefreshSettingsFragment extends PreferenceFragment
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) parent.getTag();
-            switch (position) {
-                case RefreshUtils.STATE_DEFAULT:
-                    mRefreshUtils.writePackage(entry.info.packageName, RefreshUtils.STATE_DEFAULT);
-                    break;
-                case RefreshUtils.STATE_STANDARD:
-                    mRefreshUtils.writePackage(entry.info.packageName, RefreshUtils.STATE_STANDARD);
-                    break;
-                case RefreshUtils.STATE_HIGH:
-                    mRefreshUtils.writePackage(entry.info.packageName, RefreshUtils.STATE_HIGH);
-                    break;
-		case RefreshUtils.STATE_HIGHER:
-                    mRefreshUtils.writePackage(entry.info.packageName, RefreshUtils.STATE_HIGHER);
-                    break;
-		case RefreshUtils.STATE_MAXIMUM:
-                    mRefreshUtils.writePackage(entry.info.packageName, RefreshUtils.STATE_MAXIMUM);
-                    break;
+
+            int currentState = mRefreshUtils.getStateForPackage(entry.info.packageName);
+            if (currentState != position) {
+                mRefreshUtils.writePackage(entry.info.packageName, position);
+                notifyDataSetChanged();
             }
-            notifyDataSetChanged();
         }
 
         @Override
@@ -404,7 +355,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
         @Override
         public int getSectionForPosition(int position) {
-            if (position < 0 || position >= getCount()) {
+            if (position < 0 || position >= getItemCount()) {
                 return -1;
             }
 
@@ -418,7 +369,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
              * To get from that number to the expected value of 1 we need to negate
              * and subtract 2.
              */
-            return index >= 0 ? index : -index - 1;
+            return index >= 0 ? index : -index - 2;
         }
 
         @Override
