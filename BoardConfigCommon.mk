@@ -82,7 +82,7 @@ SOONG_CONFIG_dolby_vision_enabled := true
 # Dolby
 ifeq ($(TARGET_USES_MIUI_DOLBY),true)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-     $(COMMON_PATH)/dolby/manifests/dolby_framework_matrix.xml
+     $(COMMON_PATH)/configs/dolby/manifests/dolby_framework_matrix.xml
 endif
 
 # Filesystem
