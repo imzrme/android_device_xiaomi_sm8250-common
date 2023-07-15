@@ -221,7 +221,7 @@ PRODUCT_COPY_FILES += \
 ifeq ($(TARGET_USES_MIUI_DOLBY),true)
 # Miui Dolby Engine Topic
 # Dolby Sepolicy
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/dolby
+BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/dolby
 
 # Dolby Props
 PRODUCT_VENDOR_PROPERTIES += \
