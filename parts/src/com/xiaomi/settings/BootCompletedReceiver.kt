@@ -48,7 +48,14 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
         val fastChargeEnabled = sharedPreference.getBoolean(ChargeUtils.FAST_CHARGE_KEY, false)
         ChargeUtils.setFastChargeStatus(if (fastChargeEnabled) ChargeUtils.FAST_CHARGE_ON else ChargeUtils.FAST_CHARGE_OFF)
-        
+
+        val displayToken: IBinder = SurfaceControl.getInternalDisplayToken()
+        SurfaceControl.overrideHdrTypes(
+                displayToken, intArrayOf(
+                    HdrCapabilities.HDR_TYPE_DOLBY_VISION, HdrCapabilities.HDR_TYPE_HDR10,
+                    HdrCapabilities.HDR_TYPE_HLG, HdrCapabilities.HDR_TYPE_HDR10_PLUS
+                )
+        )
     }
 
     companion object {
