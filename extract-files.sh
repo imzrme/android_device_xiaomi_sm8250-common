@@ -60,8 +60,21 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        vendor/bin/hw/dolbycodec2)
+            patchelf --replace-needed libcodec2_hidl@1.0.so libcodec2_hidl@1.0.stock.so "${2}"
+            ;;
         vendor/etc/media_codecs_kona.xml)
             sed -i "/media_codecs_dolby_audio.xml/d" "${2}"
+            ;;
+        vendor/etc/vintf/manifest/c2_manifest_vendor.xml)
+            sed -ni '/ozoaudio/!p' "${2}"
+            ;;
+        vendor/lib/libcodec2_hidl@1.0.stock.so)
+            patchelf --set-soname libcodec2_hidl@1.0.stock.so "${2}"
+            patchelf --replace-needed libcodec2_vndk.so libcodec2_vndk.stock.so "${2}"
+            ;;
+        vendor/lib/libcodec2_vndk.stock.so)
+            patchelf --set-soname libcodec2_vndk.stock.so "${2}"
             ;;
     esac
 }
