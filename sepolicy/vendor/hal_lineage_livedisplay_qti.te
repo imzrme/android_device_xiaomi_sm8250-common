@@ -6,6 +6,10 @@ init_daemon_domain(hal_lineage_livedisplay_qti)
 
 # Allow LiveDisplay HAL's default implementation to use vendor-binder service
 vndbinder_use(hal_lineage_livedisplay_qti)
+binder_call(hal_lineage_livedisplay_client, hal_lineage_livedisplay_server)
+add_hwservice(hal_lineage_livedisplay_server, hal_lineage_livedisplay_hwservice)
+
+allow hal_lineage_livedisplay_client hal_lineage_livedisplay_hwservice:hwservice_manager find;
 
 allow hal_lineage_livedisplay_qti vendor_sysfs_graphics:dir r_dir_perms;
 allow hal_lineage_livedisplay_qti vendor_sysfs_graphics:file rw_file_perms;
