@@ -117,3 +117,7 @@
 # WiFi
 /vendor/bin/nv_mac                                                      u:object_r:vendor_wcnss_service_exec:s0
 /data/vendor/mac_addr(/.*)?                                             u:object_r:vendor_wifi_vendor_data_file:s0
+
+# Live Display
+/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.0-service-sdm                u:object_r:hal_lineage_livedisplay_qti_exec:s0
+/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.xiaomi_kona       u:object_r:hal_lineage_livedisplay_qti_exec:s0
