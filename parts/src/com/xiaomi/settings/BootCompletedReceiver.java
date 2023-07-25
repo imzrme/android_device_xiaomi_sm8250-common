@@ -25,6 +25,7 @@ import android.util.Log;
 import com.xiaomi.settings.popupcamera.PopupCameraUtils;
 import com.xiaomi.settings.thermal.ThermalUtils;
 import com.xiaomi.settings.refreshrate.RefreshUtils;
+import com.xiaomi.settings.utils
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 

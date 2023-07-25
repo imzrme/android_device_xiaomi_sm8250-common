@@ -84,7 +84,7 @@ public class HBMModeTileService extends TileService {
     public void onClick() {
         super.onClick();
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean dcDimmingEnabled = sharedPrefs.getBoolean(DcDimmingTileService.DcUtils.DC_DIMMING_KEY, false);
+        final boolean dcDimmingEnabled = sharedPrefs.getBoolean(DcUtils.DC_DIMMING_KEY, false);
         if (dcDimmingEnabled) {
             return;
         }
