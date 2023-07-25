@@ -141,4 +141,17 @@
     <string name="touch_polling_rate_title">高触控采样率</string>
     <string name="touch_polling_rate_summary">将触控刷新率从240hz提升到360hz，提高触控跟手度，可能会略微增加耗电</string>
 
+    <!-- HBM settings -->
+    <string name="hbm_fragment_title">高亮度模式</string>
+    <string name="hbm_fragment_summary">高亮度模式设置</string>
+    <string name="hbm_mode_title">高亮度模式</string>
+    <string name="hbm_mode_summary">启用峰值亮度</string>
+    <string name="auto_hbm_title">自动开启高亮度模式</string>
+    <string name="auto_hbm_summary">在阳光下启用峰值亮度</string>
+    <string name="auto_hbm_threshold_title"></string>
+    <string name="auto_hbm_threshold_summary">阈值（lux）</string>
+    <string name="hbm_disable_time_title"></string>
+    <string name="hbm_disable_time_summary">关闭延迟(秒)</string>
+    <string name="hbm_mode_warning">长时间使用高亮度模式可能会损坏设备的屏幕</string>
+
 </resources>

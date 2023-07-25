@@ -17,6 +17,9 @@
 package com.xiaomi.settings.utils;
 
 import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
+import android.os.UserHandle;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,6 +28,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import com.xiaomi.settings.hbm.HBMFragment;
+import com.xiaomi.settings.hbm.AutoHBMService;
 
 public final class FileUtils {
     private static final String TAG = "FileUtils";
@@ -163,4 +169,43 @@ public final class FileUtils {
         }
         return ok;
     }
+
+    public static boolean getFileValueAsBoolean(String filename, boolean defValue) {
+        String fileValue = readOneLine(filename);
+        if(fileValue!=null){
+            return (fileValue.equals("0")?false:true);
+        }
+        return defValue;
+    }
+
+    public static String getFileValue(String filename, String defValue) {
+        String fileValue = readOneLine(filename);
+        if(fileValue!=null){
+            return fileValue;
+        }
+        return defValue;
+    }
+
+    private static boolean mServiceEnabled = false;
+
+    private static void startService(Context context) {
+        context.startServiceAsUser(new Intent(context, AutoHBMService.class),
+                UserHandle.CURRENT);
+        mServiceEnabled = true;
+    }
+
+    private static void stopService(Context context) {
+        mServiceEnabled = false;
+        context.stopServiceAsUser(new Intent(context, AutoHBMService.class),
+                UserHandle.CURRENT);
+    }
+
+    public static void enableService(Context context) {
+        if (HBMFragment.isAUTOHBMEnabled(context) && !mServiceEnabled) {
+            startService(context);
+        } else if (!HBMFragment.isAUTOHBMEnabled(context) && mServiceEnabled) {
+            stopService(context);
+        }
+    }
+
 }
