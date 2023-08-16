@@ -256,10 +256,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.audio.misound.bluetooth.enable=true
 endif
 
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm \
-    vendor.lineage.livedisplay@2.1-service.xiaomi_kona
 
 # DRM
 PRODUCT_PACKAGES += \
